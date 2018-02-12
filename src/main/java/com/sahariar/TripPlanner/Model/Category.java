@@ -1,15 +1,15 @@
 package com.sahariar.TripPlanner.Model;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 
 @Entity
-public class Location {
+public class Category {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -17,40 +17,32 @@ public class Location {
 	private String name;
 	private String description;
 	
-	//Relations
-	@OneToMany(mappedBy="location")
-	private List<Hotel> hotels;
-
+	@ManyToMany(mappedBy="categories")
+	private Set<Room> rooms;
 	public long getId() {
 		return id;
 	}
-
 	public void setId(long id) {
 		this.id = id;
 	}
-
 	public String getName() {
 		return name;
 	}
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
 	public String getDescription() {
 		return description;
 	}
-
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
-	public List<Hotel> getHotels() {
-		return hotels;
+	public Set<Room> getRooms() {
+		return rooms;
 	}
-
-	public void setHotels(List<Hotel> hotels) {
-		this.hotels = hotels;
-	} 
+	public void setRooms(Set<Room> rooms) {
+		this.rooms = rooms;
+	}
+	
 	
 }
