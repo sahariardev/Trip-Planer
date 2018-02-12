@@ -9,6 +9,13 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+@JsonIdentityInfo(
+		  generator = ObjectIdGenerators.PropertyGenerator.class, 
+		  property = "id")
 @Entity
 public class Hotel {
 
@@ -22,12 +29,14 @@ public class Hotel {
 	private String email;
 	
 	//Relations
+	//@JsonManagedReference(value="hotel-location")
 	@ManyToOne
 	private Location location;
-	
+	//@JsonManagedReference(value="hotel-rooms")
 	@OneToMany(mappedBy="hotel")
 	private List<Room> rooms;
 	
+	//@JsonManagedReference(value="hotel-feedback")
 	@OneToMany(mappedBy="hotel")
 	private List<Feedback> feedbacks;
 

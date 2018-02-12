@@ -8,6 +8,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+@JsonIdentityInfo(
+		  generator = ObjectIdGenerators.PropertyGenerator.class, 
+		  property = "id")
 @Entity
 public class User {
 
@@ -17,11 +24,14 @@ public class User {
 	
 	private String name;
 	private String email;
+	@JsonIgnore
 	private String password;
+	@JsonIgnore
     private String role;
 	private String contact;
 	
 	//Relation variable
+	//@JsonManagedReference
 	@OneToMany(mappedBy="user")
 	private List<Bookings> bookings;
 

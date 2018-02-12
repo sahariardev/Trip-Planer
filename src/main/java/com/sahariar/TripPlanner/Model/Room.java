@@ -13,6 +13,13 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+@JsonIdentityInfo(
+		  generator = ObjectIdGenerators.PropertyGenerator.class, 
+		  property = "id")
 @Entity
 public class Room {
 
@@ -25,12 +32,15 @@ public class Room {
 	private String details;
 	
 	//Relations
+	//@JsonBackReference(value="hotel-rooms")
 	@ManyToOne
 	private Hotel hotel;
 	
+	//@JsonManagedReference(value="room_bookings")
 	@OneToMany(mappedBy="room")
 	private List<Bookings> bookings;
 	
+	//@JsonBackReference(value="room_categories")
 	@ManyToMany
 	@JoinTable(name="room_category",joinColumns=@JoinColumn(name="room_id"),
 	inverseJoinColumns

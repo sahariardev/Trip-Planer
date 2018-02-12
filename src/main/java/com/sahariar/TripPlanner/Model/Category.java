@@ -8,6 +8,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+@JsonIdentityInfo(
+		  generator = ObjectIdGenerators.PropertyGenerator.class, 
+		  property = "id")
 @Entity
 public class Category {
 
@@ -16,7 +22,7 @@ public class Category {
 	private long id;
 	private String name;
 	private String description;
-	
+	//@JsonManagedReference(value="room_categories")
 	@ManyToMany(mappedBy="categories")
 	private Set<Room> rooms;
 	public long getId() {

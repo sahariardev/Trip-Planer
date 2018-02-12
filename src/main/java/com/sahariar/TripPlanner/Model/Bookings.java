@@ -8,6 +8,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+@JsonIdentityInfo(
+		  generator = ObjectIdGenerators.PropertyGenerator.class, 
+		  property = "id")
 @Entity
 public class Bookings {
 
@@ -20,8 +26,10 @@ public class Bookings {
 	private Date enddate;
 	
 	//relationships
+	//@JsonBackReference(value="room_bookings")
 	@ManyToOne
 	private Room room;
+	//@JsonBackReference
 	@ManyToOne
 	private User user;
 	public long getId() {
