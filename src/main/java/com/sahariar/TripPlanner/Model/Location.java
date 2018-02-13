@@ -60,6 +60,12 @@ public class Location {
 
 	public void setHotels(List<Hotel> hotels) {
 		this.hotels = hotels;
+	}
+
+	@Override
+	public String toString() {
+		return "Location [id=" + id + ", name=" + name + ", description=" + description  + "]";
 	} 
+	
 	
 }

@@ -111,5 +111,13 @@ public class Hotel {
 	public void setFeedbacks(List<Feedback> feedbacks) {
 		this.feedbacks = feedbacks;
 	}
+
+	@Override
+	public String toString() {
+		return "Hotel [id=" + id + ", name=" + name + ", address=" + address + ", description=" + description
+				+ ", contact=" + contact + ", email=" + email + ", location=" + location + ", rooms=" + rooms
+				+ ", feedbacks=" + feedbacks + "]";
+	}
+	
 	
 }
