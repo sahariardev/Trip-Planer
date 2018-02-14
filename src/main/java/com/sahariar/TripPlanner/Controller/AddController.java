@@ -31,7 +31,7 @@ public class AddController {
 	@PostMapping("/hotel")
 	public void addHotel(@RequestBody HotelRequest request)
 	{
-		System.out.println(request);
+		hs.addHotelFromRequest(request);
 	}
 	@GetMapping("/hotel")
 	public List<Hotel> getHotel()

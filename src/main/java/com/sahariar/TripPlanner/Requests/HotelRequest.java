@@ -7,7 +7,7 @@ public class HotelRequest {
 	private String description;
 	private String contact;
 	private String email;
-	private String location_id;
+	private long location_id;
 	public String getName() {
 		return name;
 	}
@@ -38,10 +38,10 @@ public class HotelRequest {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getLocation_id() {
+	public long getLocation_id() {
 		return location_id;
 	}
-	public void setLocation_id(String location_id) {
+	public void setLocation_id(long location_id) {
 		this.location_id = location_id;
 	}
 	@Override
