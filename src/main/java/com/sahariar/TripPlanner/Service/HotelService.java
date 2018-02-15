@@ -25,6 +25,10 @@ public class HotelService {
 	  	
 		return hr.findAll();
 	}
+	public Hotel getOne(long id)
+	{
+		return hr.getOne(id);
+	}
 	public Hotel addHotelFromRequest(HotelRequest request)
 	{
 		Hotel hotel=new Hotel();

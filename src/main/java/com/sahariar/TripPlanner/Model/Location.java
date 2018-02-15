@@ -8,13 +8,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @JsonIdentityInfo(
 		  generator = ObjectIdGenerators.PropertyGenerator.class, 
 		  property = "id")
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Location {
 
 	@Id
@@ -59,13 +60,11 @@ public class Location {
 	}
 
 	public void setHotels(List<Hotel> hotels) {
-		this.hotels = hotels;
+		this.hotels=hotels;
+		
 	}
 
-	@Override
-	public String toString() {
-		return "Location [id=" + id + ", name=" + name + ", description=" + description  + "]";
-	} 
+	
 	
 	
 }
