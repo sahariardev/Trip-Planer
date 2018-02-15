@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,15 +29,29 @@ public class AddController {
 		ls.add(location);
 		
 	}
+	@GetMapping("/location/{id}")
+	public Location getLocation(@PathVariable long id)
+	{
+		
+		return ls.getOne(id);
+	}
 	@PostMapping("/hotel")
 	public void addHotel(@RequestBody HotelRequest request)
 	{
 		hs.addHotelFromRequest(request);
+		
 	}
 	@GetMapping("/hotel")
 	public List<Hotel> getHotel()
 	{
 		return hs.getAll();
+	}
+	@GetMapping("/hotel/{id}")
+	public Hotel gethotelOne(@PathVariable long id)
+	{
+		
+		
+		return hs.getOne(id);
 	}
 	
 }
