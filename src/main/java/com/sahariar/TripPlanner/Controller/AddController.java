@@ -2,6 +2,8 @@ package com.sahariar.TripPlanner.Controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,7 +31,7 @@ public class AddController {
 		
 	}
 	@PostMapping("/hotel")
-	public void addHotel(@RequestBody HotelRequest request)
+	public void addHotel(@Valid @RequestBody HotelRequest request)
 	{
 		hs.addHotelFromRequest(request);
 	}

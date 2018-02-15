@@ -1,13 +1,22 @@
 package com.sahariar.TripPlanner.Requests;
 
+import javax.validation.constraints.NotNull;
+
 public class HotelRequest {
 
+	@NotNull
 	private String name;
+	@NotNull
 	private String address;
+	@NotNull
 	private String description;
+	@NotNull
 	private String contact;
+	@NotNull
 	private String email;
+	@NotNull
 	private long location_id;
+	
 	public String getName() {
 		return name;
 	}
