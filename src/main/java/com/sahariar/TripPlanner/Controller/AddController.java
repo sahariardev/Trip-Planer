@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sahariar.TripPlanner.Exceptions.HotelNotFound;
+import com.sahariar.TripPlanner.Exceptions.LocationNotFound;
 import com.sahariar.TripPlanner.Model.Hotel;
 import com.sahariar.TripPlanner.Model.Location;
 import com.sahariar.TripPlanner.Requests.HotelRequest;
@@ -34,8 +36,13 @@ public class AddController {
 	@GetMapping("/location/{id}")
 	public Location getLocation(@PathVariable long id)
 	{
-		
-		return ls.getOne(id);
+		Location l=ls.getOne(id);
+		if(l==null)
+		{
+			System.out.println("Here ");
+			throw new LocationNotFound("Location not found with id "+id);
+		}
+		return l;
 	}
 	@PostMapping("/hotel")
 	public void addHotel(@Valid @RequestBody HotelRequest request)
@@ -51,9 +58,13 @@ public class AddController {
 	@GetMapping("/hotel/{id}")
 	public Hotel gethotelOne(@PathVariable long id)
 	{
+		Hotel hotel=hs.getOne(id);
 		
-		
-		return hs.getOne(id);
+		if(hotel==null)
+		{
+			throw new HotelNotFound("Hotel not found with id "+id);
+		}
+		return hotel;
 	}
 	
 }

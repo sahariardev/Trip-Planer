@@ -23,9 +23,5 @@ public class ViewController {
 		return ls.getAll();
 	}
 	
-	@GetMapping("/hotel/{id}")
-	public Hotel getHotel(@PathVariable long id)
-	{
-         return new Hotel();		
-	}
+	
 }
