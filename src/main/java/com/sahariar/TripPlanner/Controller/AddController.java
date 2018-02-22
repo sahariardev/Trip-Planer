@@ -57,12 +57,6 @@ public class AddController {
 	{
 		return hs.getAll();
 	}
-	@GetMapping("/hotel/{id}")
-	public Hotel gethotelOne(@PathVariable long id)
-	{
-		
-		
-		return hs.getOne(id);
-	}
+	
 	
 }

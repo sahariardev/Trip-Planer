@@ -27,7 +27,18 @@ public class HotelService {
 	}
 	public Hotel getOne(long id)
 	{
-		return hr.getOne(id);
+		Hotel hotel= hr.getOne(id);
+		
+		try
+		{
+			String s=hotel.getName();
+		}
+		catch(Exception e)
+		{
+			hotel=null;
+		}
+		
+		return hotel;
 	}
 	public Hotel addHotelFromRequest(HotelRequest request)
 	{
