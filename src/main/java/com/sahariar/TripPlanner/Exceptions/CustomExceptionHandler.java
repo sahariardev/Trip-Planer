@@ -28,7 +28,16 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 	{
 		ExceptionResponse exceptionResponse= new ExceptionResponse(new Date(),ex.getMessage(),
 				request.getDescription(false));
+		System.err.println("On htole not found");
+		return new ResponseEntity(exceptionResponse,HttpStatus.NOT_FOUND);
 		
+	}
+	@ExceptionHandler(LocationNotFound.class)
+	public final ResponseEntity<Object> handleLocationNotFoundException(LocationNotFound ex,WebRequest request)
+	{
+		ExceptionResponse exceptionResponse= new ExceptionResponse(new Date(),ex.getMessage(),
+				request.getDescription(false));
+		System.err.println("Here");
 		return new ResponseEntity(exceptionResponse,HttpStatus.NOT_FOUND);
 		
 	}

@@ -4,7 +4,7 @@ import javax.validation.constraints.NotNull;
 
 public class HotelRequest {
 
-	@NotNull
+	@NotNull(message="Name can not be empty")
 	private String name;
 	@NotNull
 	private String address;
