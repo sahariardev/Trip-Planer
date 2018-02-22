@@ -2,10 +2,11 @@ package com.sahariar.TripPlanner.Service;
 
 import java.util.List;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sahariar.TripPlanner.Model.Hotel;
 import com.sahariar.TripPlanner.Model.Location;
 import com.sahariar.TripPlanner.Repositories.LocationRepository;
 
@@ -25,10 +26,22 @@ public class LocationService {
 		return l;
 	}
 
-	public Location getOne(long id) {
-		// TODO Auto-generated method stub
+	public Location getOne(long id)  {
 		
-		return  lr.getOne(id);
+		Location l;
+		try 
+		{
+		  l=lr.getOne(id);
+		 String s=l.getName();
+		}
+		catch(EntityNotFoundException e)
+		{
+			l=null;
+		}
+		
+		
+		
+		return l;
 		
 		
 		
