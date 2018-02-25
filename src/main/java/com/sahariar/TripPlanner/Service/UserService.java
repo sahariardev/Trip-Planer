@@ -38,6 +38,14 @@ public class UserService {
 	public User getOne(long id)
 	{
 		User u=ur.getOne(id);
+		try
+		{
+			String s=u.getName();
+		}
+		catch(Exception e)
+		{
+			u=null;
+		}
 		return u;
 	}
 	

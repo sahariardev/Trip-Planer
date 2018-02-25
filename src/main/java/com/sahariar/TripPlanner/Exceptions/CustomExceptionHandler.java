@@ -41,5 +41,23 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 		return new ResponseEntity(exceptionResponse,HttpStatus.NOT_FOUND);
 		
 	}
+	@ExceptionHandler(UserNotFound.class)
+	public final ResponseEntity<Object> handleUserNotFoundException(UserNotFound ex,WebRequest request)
+	{
+		ExceptionResponse exceptionResponse= new ExceptionResponse(new Date(),ex.getMessage(),
+				request.getDescription(false));
+		System.err.println("Here on user not found");
+		return new ResponseEntity(exceptionResponse,HttpStatus.NOT_FOUND);
+		
+	}
+	@ExceptionHandler(CategoryNotFound.class)
+	public final ResponseEntity<Object> handleCategoryNotFoundException(CategoryNotFound ex,WebRequest request)
+	{
+		ExceptionResponse exceptionResponse= new ExceptionResponse(new Date(),ex.getMessage(),
+				request.getDescription(false));
+		System.err.println("Here on Category not found");
+		return new ResponseEntity(exceptionResponse,HttpStatus.NOT_FOUND);
+		
+	}
 	
 }

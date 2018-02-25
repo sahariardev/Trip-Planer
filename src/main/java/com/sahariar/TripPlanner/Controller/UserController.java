@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.sahariar.TripPlanner.Exceptions.UserNotFound;
 import com.sahariar.TripPlanner.Model.User;
 import com.sahariar.TripPlanner.Requests.UserRequest;
 import com.sahariar.TripPlanner.Service.UserService;
@@ -44,7 +45,12 @@ public class UserController {
 	@GetMapping("user/{id}")
 	public User getuser(@PathVariable long id)
 	{
-		return us.getOne(id);
+		User u=us.getOne(id);
+		if(u==null)
+		{
+			throw new UserNotFound("User not found with id "+id);
+		}
+		return u;
 	}
 	
 }
