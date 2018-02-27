@@ -1,5 +1,8 @@
 package com.sahariar.TripPlanner.Service;
 
+import java.util.Date;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -52,6 +55,37 @@ public class BookingService {
 		b=br.save(b);
 		return b;
 	}
+	public List<Bookings> findaAll()
+	{
+		return br.findAll();
+	}
 	
+	public Bookings getOne(long id)
+	{
+		Bookings bookings=br.getOne(id);
+		
+		try
+		{
+			bookings.getUser();
+		}
+		catch(Exception e)
+		{
+			bookings=null;
+		}
+		return bookings;
+	}
+	
+	
+	public boolean isRoomAvailable(long id,Date startdate,Date enddate)
+	{
+		
+		List<Bookings> roomBookings=br.findByRoomId(id);
+		
+		for(Bookings book:roomBookings)
+		{
+			//if(book.getStartdate().compareTo(startdate)>)
+		}
+		return true;
+	}
 	
 }
