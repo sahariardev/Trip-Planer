@@ -51,7 +51,10 @@ public class BookingService {
 		b.setRoom(r);
 		b.setEnddate(request.getEnd_date());
 		b.setStartdate(request.getStart_date());
-		
+		if(!(isRoomAvailable(b.getRoom().getId(),b.getStartdate(),b.getEnddate())))
+		{
+			throw new BadRequest("Room is already booked");
+		}
 		b=br.save(b);
 		return b;
 	}
@@ -83,7 +86,13 @@ public class BookingService {
 		
 		for(Bookings book:roomBookings)
 		{
-			//if(book.getStartdate().compareTo(startdate)>)
+			
+			if( !((startdate.compareTo(book.getStartdate())<0 && startdate.compareTo(book.getEnddate())<0) || startdate.compareTo(book.getEnddate())>0))
+			   {
+				  return false;
+				}
+			
+			
 		}
 		return true;
 	}
