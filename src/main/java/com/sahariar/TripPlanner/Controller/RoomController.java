@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,7 +15,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.fasterxml.jackson.databind.ser.FilterProvider;
+import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
+import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import com.sahariar.TripPlanner.Exceptions.NotFound;
+import com.sahariar.TripPlanner.Model.Hotel;
 import com.sahariar.TripPlanner.Model.Room;
 import com.sahariar.TripPlanner.Requests.RoomRequest;
 import com.sahariar.TripPlanner.Service.RoomService;
@@ -38,9 +43,22 @@ public class RoomController {
 	}
 	
 	@GetMapping("rooms")
-	public List<Room> getAll()
+	public MappingJacksonValue getAll()
 	{
-		return rs.findAll();
+		
+		List<Room> rooms=rs.findAll();
+		SimpleBeanPropertyFilter filter=SimpleBeanPropertyFilter.filterOutAllExcept("name","address","description","contact","email");
+		SimpleBeanPropertyFilter filter2=SimpleBeanPropertyFilter.filterOutAllExcept("name","contact","email"); 
+		FilterProvider filters= new SimpleFilterProvider().addFilter("hotelFilter", filter).addFilter("userFilter", filter2);
+
+			
+			MappingJacksonValue mapping=new MappingJacksonValue(rooms);
+	
+			mapping.setFilters(filters);
+			
+		
+		
+		return mapping;
 	}
 	
 	
@@ -48,6 +66,7 @@ public class RoomController {
 	public Room getRoom(@PathVariable long id)
 	{
 		Room r=rs.getOne(id);
+		
 		if(r==null)
 		{
 			throw new NotFound("Room not found "+id);
