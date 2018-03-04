@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.fasterxml.jackson.databind.ser.FilterProvider;
+import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
+import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import com.sahariar.TripPlanner.Exceptions.NotFound;
 import com.sahariar.TripPlanner.Model.Feedback;
 import com.sahariar.TripPlanner.Requests.FeedbackRequest;
@@ -41,24 +45,48 @@ public class FeedBackController {
 	
 	
 	@GetMapping("feedbacks")
-	public List<Feedback> getAll()
+	public MappingJacksonValue getAll()
 	{
-		return fs.findAll();
+		
+		
+		List<Feedback> feedbacks= fs.findAll();
+		
+		
+		SimpleBeanPropertyFilter filter1=SimpleBeanPropertyFilter.serializeAll();
+		SimpleBeanPropertyFilter hotelFilter=SimpleBeanPropertyFilter.serializeAllExcept("feedbacks","rooms","location");
+		FilterProvider filters=new SimpleFilterProvider().addFilter("FeedbackFilter", filter1).addFilter("hotelFilter", hotelFilter);
+		
+		MappingJacksonValue mapping=new MappingJacksonValue(feedbacks);
+		mapping.setFilters(filters);
+		
+		return mapping;
+		
+		
+		
+		
 	}
 	
 	@GetMapping("feedback/{id}")
-	public Feedback getOne(@PathVariable long id)
+	public MappingJacksonValue getOne(@PathVariable long id)
 	{
-		Feedback f=fs.getOne(id);
+		Feedback feedback=fs.getOne(id);
 		
-		if(f==null)
+		if(feedback==null)
 		{
 			throw new NotFound("Feedback not found with id "+id);
 			
 			
 		}
 		
-		return f;
+		SimpleBeanPropertyFilter filter1=SimpleBeanPropertyFilter.serializeAllExcept("hibernateLazyInitializer","handler");
+		SimpleBeanPropertyFilter hotelFilter=SimpleBeanPropertyFilter.serializeAllExcept("feedbacks","rooms","location");
+		FilterProvider filters=new SimpleFilterProvider().addFilter("FeedbackFilter", filter1).addFilter("hotelFilter", hotelFilter);
+		MappingJacksonValue mapping=new MappingJacksonValue(feedback);
+		
+        mapping.setFilters(filters);
+		
+		return mapping;
+		
 	}
 	
 	

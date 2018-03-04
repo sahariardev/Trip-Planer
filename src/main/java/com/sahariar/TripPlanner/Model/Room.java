@@ -17,11 +17,7 @@ import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-@JsonIdentityInfo(
-		  generator = ObjectIdGenerators.PropertyGenerator.class, 
-		  property = "id")
-
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonFilter("roomFilter")
 @Entity
 public class Room {
 
