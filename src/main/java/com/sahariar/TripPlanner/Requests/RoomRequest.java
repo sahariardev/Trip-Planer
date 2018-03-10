@@ -16,6 +16,7 @@ public class RoomRequest {
     @NotNull
     private long hotel_id;
 	
+    @NotNull
 	private List<Long> category_id;
 
 

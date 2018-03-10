@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -25,6 +26,7 @@ import com.sahariar.TripPlanner.Requests.RoomRequest;
 import com.sahariar.TripPlanner.Service.RoomService;
 
 @RestController
+@RequestMapping("/rest")
 public class RoomController {
 
 	@Autowired
@@ -33,7 +35,8 @@ public class RoomController {
 	//add room
 	@PostMapping("room")
 	public ResponseEntity<Object> addRoom(@Valid @RequestBody RoomRequest request)
-	{
+	{  
+		
 		Room r=rs.save(request);
 		URI location=ServletUriComponentsBuilder
 				.fromCurrentRequest()

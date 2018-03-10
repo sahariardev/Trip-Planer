@@ -15,7 +15,10 @@ public class UserService {
 	@Autowired
 	UserRepository ur;
 	
-	
+	public User findUserByEmail(String s)
+	{
+		return ur.findByEmail(s);
+	}
 	public User saveUser(UserRequest request)
 	{
 		User u=new User();
