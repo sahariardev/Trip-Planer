@@ -47,6 +47,7 @@ public class RoomService {
 		}
 		
 		r.setCategories(c);
+		
 		r.setDetails(request.getDetails());
 		Hotel h=hs.getOne(request.getHotel_id());
 		

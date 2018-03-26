@@ -28,6 +28,7 @@ public class Room {
 	private long id;
 	private int fee;
 	private String details;
+	private String image_url;
 	
 	//Relations
 	//@JsonBackReference(value="hotel-rooms")
@@ -92,6 +93,15 @@ public class Room {
 	public void setCategories(Set<Category> categories) {
 		this.categories = categories;
 	}
+
+	public String getImage_url() {
+		return image_url;
+	}
+
+	public void setImage_url(String image_url) {
+		this.image_url = image_url;
+	}
+	
 	
 	
 }

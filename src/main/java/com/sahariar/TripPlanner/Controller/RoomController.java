@@ -1,11 +1,17 @@
 package com.sahariar.TripPlanner.Controller;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URI;
+import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +19,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.fasterxml.jackson.databind.ser.FilterProvider;
@@ -34,15 +43,37 @@ public class RoomController {
 	
 	//add room
 	@PostMapping("room")
-	public ResponseEntity<Object> addRoom(@Valid @RequestBody RoomRequest request)
+	public ResponseEntity<Object> addRoom(@Valid @RequestBody RoomRequest request,HttpServletRequest req) throws IOException
 	{  
+		MultipartHttpServletRequest mReq=(MultipartHttpServletRequest)req;
+		Iterator<String> it=mReq.getFileNames();
+		MultipartFile file=mReq.getFile(it.next());
+		System.out.println(file.getName());
+		File uploadedFile=new File(file.getOriginalFilename());
+		uploadedFile.createNewFile();
+		FileOutputStream fout=new FileOutputStream(uploadedFile);
+		fout.write(file.getBytes());
+		fout.close();
 		
 		Room r=rs.save(request);
+		
+		
 		URI location=ServletUriComponentsBuilder
 				.fromCurrentRequest()
 				.path("/{id}")
 				.buildAndExpand(r.getId()).toUri();
 		return ResponseEntity.created(location).build();
+	}
+	@PostMapping("upload")
+	public ResponseEntity <Object> file(@RequestParam("file") MultipartFile file) throws IOException
+	{
+		File uploadedFile=new File(file.getOriginalFilename());
+		uploadedFile.createNewFile();
+		FileOutputStream fout=new FileOutputStream(uploadedFile);
+		fout.write(file.getBytes());
+		fout.close();
+		
+		return new ResponseEntity("File uploaded",HttpStatus.OK);
 	}
 	
 	@GetMapping("rooms")
