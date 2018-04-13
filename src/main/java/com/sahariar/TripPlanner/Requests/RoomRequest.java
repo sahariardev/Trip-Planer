@@ -10,6 +10,8 @@ public class RoomRequest {
 	
 	
 	
+	private int id;
+	
 	@NotNull
 	private int fee;
 	

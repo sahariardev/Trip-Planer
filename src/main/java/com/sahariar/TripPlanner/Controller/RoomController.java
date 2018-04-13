@@ -45,15 +45,7 @@ public class RoomController {
 	@PostMapping("room")
 	public ResponseEntity<Object> addRoom(@Valid @RequestBody RoomRequest request,HttpServletRequest req) throws IOException
 	{  
-		MultipartHttpServletRequest mReq=(MultipartHttpServletRequest)req;
-		Iterator<String> it=mReq.getFileNames();
-		MultipartFile file=mReq.getFile(it.next());
-		System.out.println(file.getName());
-		File uploadedFile=new File(file.getOriginalFilename());
-		uploadedFile.createNewFile();
-		FileOutputStream fout=new FileOutputStream(uploadedFile);
-		fout.write(file.getBytes());
-		fout.close();
+		
 		
 		Room r=rs.save(request);
 		
@@ -133,6 +125,9 @@ public class RoomController {
 
 		
 	}
+	//delete room
+	//
+	
 	
 	
 }
